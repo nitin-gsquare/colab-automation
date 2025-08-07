@@ -186,11 +186,24 @@ def fetch_ter_data(month, fin_year, scheme_cat_desc, nav_id):
         return pd.DataFrame()
 
 def main():
-    month = "07-2025"
-    fin_year = "2025-2026"
-    all_data = []
+    # month = "07-2025"
+    # fin_year = "2025-2026"
+    # all_data = []
+    
+    today = datetime.datetime.today()
+    month = today.strftime("%m-%Y")
 
-    print(f"📥 Downloading TER for all scheme types and categories in {month}...\n")
+    # Determine financial year
+    if today.month >= 4:
+        fin_year = f"{today.year}-{today.year + 1}"
+    else:
+        fin_year = f"{today.year - 1}-{today.year}"
+
+    all_data = []
+    print(f"📅 Current Month: {month}\n")
+    print(f"📅 Today Year: {today}\n")
+    print(f"📅 Financial Year: {fin_year}\n")
+    print(f"📥 Downloading TER for all scheme types and categories in {month} ({fin_year})...\n")
 
     for nav_id, scheme_categories in ter_scheme_type_and_category_dict.items():
         scheme_type = ter_scheme_type_dict.get(nav_id, "Unknown")
