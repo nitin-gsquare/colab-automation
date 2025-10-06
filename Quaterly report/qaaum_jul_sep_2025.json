@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "Mfname": "Grand Total",
+      "SchemeCat_Desc": "Total",
+      "schemes": [],
+      "totalAUM": {
+        "ExcludingFundOfFundsDomesticButIncludingFundOfFundsOverseas": 0,
+        "FundOfFundsDomestic": 0
+      }
+    }
+  ]
+}
