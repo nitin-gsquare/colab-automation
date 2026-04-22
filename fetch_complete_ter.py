@@ -455,17 +455,19 @@ def fetch_ter_data(month, fin_year, scheme_cat_desc, nav_id):
     # Rename JSON fields to match OLD Excel column headers
     # ===================================================
     rename_map = {
-        "R_BaseTER": "Regular Plan - Base TER (%)",
-        "R_6A_B": "Regular Plan - Additional expense as per Regulation 52(6A)(b) (%)",
-        "R_6A_C": "Regular Plan - Additional expense as per Regulation 52(6A)(c) (%)",
-        "R_GST": "Regular Plan - GST (%)",
-        "R_TER": "Regular Plan - Total TER (%)",
-        "D_BaseTER": "Direct Plan - Base TER (%)",
-        "D_6A_B": "Direct Plan - Additional expense as per Regulation 52(6A)(b) (%)",
-        "D_6A_C": "Direct Plan - Additional expense as per Regulation 52(6A)(c) (%)",
-        "D_GST": "Direct Plan - GST (%)",
-        "D_TER": "Direct Plan - Total TER (%)",
-        "Scheme_Name": "Scheme Name",
+        "R_BaseTER": "Regular Base TER",
+        "R_6A_B": "Regular 52(6A)(B)",
+        "R_6A_C": "Regular 52(6A)(C)",
+        "R_GST": "Regular GST",
+        "R_TER": "Regular TER",
+
+        "D_BaseTER": "Direct Base TER",
+        "D_6A_B": "Direct 52(6A)(B)",
+        "D_6A_C": "Direct 52(6A)(C)",
+        "D_GST": "Direct GST",
+        "D_TER": "Direct TER",
+
+        "Scheme_Name": "Scheme Name"
     }
     df.rename(columns=rename_map, inplace=True)
 
