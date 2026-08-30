@@ -28,10 +28,10 @@ jobs:
     - name: Upload to server
       env:
         HOST: ${{ secrets.SSH_HOST }}
-        USER: ${{ secrets.SSH_USER }}
-        PASS: ${{ secrets.SSH_PASS }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
-        sudo apt update
-        sudo apt install -y sshpass
-        sshpass -p "$PASS" scp -o StrictHostKeyChecking=no ter_of_mf_performance.xlsx $USER@$HOST:/home/gsquare/products/app/amfi/tmp
-
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+        scp -i ~/.ssh/id_ed25519 ter_of_mf_performance.xlsx ghdeploy@"$HOST":upload/
