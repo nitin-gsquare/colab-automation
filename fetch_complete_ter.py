@@ -452,20 +452,25 @@ def fetch_ter_data(month, fin_year, scheme_cat_desc, nav_id):
 
 
     # ===================================================
-    # Rename JSON fields to match OLD Excel column headers
+    # Rename JSON fields to match OLD Excel column headers.
+    # AMFI moved TER disclosure from Regulation 52(6A) to Regulation 66 of the
+    # SEBI (Mutual Funds) Regulations, 2026, so the API's field names changed too
+    # (R_BaseTER/R_6A_B/R_6A_C/R_GST -> R_BER/R_BrokerageCost/R_TransactionCost/R_StatutoryLevies).
+    # This is a best-effort mapping onto the legacy column names for schema
+    # continuity, not a verified regulatory equivalence -- see docs/TER_CHANGES.md.
     # ===================================================
     rename_map = {
-        "R_BaseTER": "Regular Base TER",
-        "R_6A_B": "Regular 52(6A)(B)",
-        "R_6A_C": "Regular 52(6A)(C)",
-        "R_GST": "Regular GST",
-        "R_TER": "Regular TER",
+        "R_BER": "Regular Base TER",
+        "R_BrokerageCost": "Regular 52(6A)(B)",
+        "R_TransactionCost": "Regular 52(6A)(C)",
+        "R_StatutoryLevies": "Regular GST",
+        "R_TER": "Regular Total",
 
-        "D_BaseTER": "Direct Base TER",
-        "D_6A_B": "Direct 52(6A)(B)",
-        "D_6A_C": "Direct 52(6A)(C)",
-        "D_GST": "Direct GST",
-        "D_TER": "Direct TER",
+        "D_BER": "Direct Base TER",
+        "D_BrokerageCost": "Direct 52(6A)(B)",
+        "D_TransactionCost": "Direct 52(6A)(C)",
+        "D_StatutoryLevies": "Direct GST",
+        "D_TER": "Direct Total",
 
         "Scheme_Name": "Scheme Name"
     }
@@ -508,16 +513,16 @@ def main():
     cols = [
         "AMC_NAME", "Scheme Name", "SchemeCat_Name", "SchemeCat_Desc",
         "Scheme Type (Clean)", "SchemeType_Desc",
-        "Regular Plan - Base TER (%)",
-        "Regular Plan - Additional expense as per Regulation 52(6A)(b) (%)",
-        "Regular Plan - Additional expense as per Regulation 52(6A)(c) (%)",
-        "Regular Plan - GST (%)",
-        "Regular Plan - Total TER (%)",
-        "Direct Plan - Base TER (%)",
-        "Direct Plan - Additional expense as per Regulation 52(6A)(b) (%)",
-        "Direct Plan - Additional expense as per Regulation 52(6A)(c) (%)",
-        "Direct Plan - GST (%)",
-        "Direct Plan - Total TER (%)",
+        "Regular Base TER",
+        "Regular 52(6A)(B)",
+        "Regular 52(6A)(C)",
+        "Regular GST",
+        "Regular Total",
+        "Direct Base TER",
+        "Direct 52(6A)(B)",
+        "Direct 52(6A)(C)",
+        "Direct GST",
+        "Direct Total",
         "TER Date", "Date", "MF_ID", "NAV_ID"
     ]
     final_df = final_df[[c for c in cols if c in final_df.columns]]
